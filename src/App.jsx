@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-medium mb-3">Gym Progress Tracker</h2>
+      <p className="mb-3">Track your gym workouts using this simple app</p>
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-2">
+          <label className="font-medium" htmlFor="workout_date">
+            Select Workout Date
+          </label>
+          <input
+            required
+            className="border p-3"
+            id="workout_date"
+            type="date"
+          />
+        </div>
+        <button
+          className="mt-4 px-3 py-2 bg-slate-700 text-slate-100"
+          type="submit"
+        >
+          Create Workout
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </form>
+    </div>
+  );
 }
-
-export default App
