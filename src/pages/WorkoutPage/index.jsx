@@ -6,7 +6,6 @@ const WorkoutPage = () => {
     " " +
     new Date().toLocaleString("en-in", { year: "numeric" });
 
-  console.log(date);
   return (
     <div className="container mx-auto p-4">
       <div className="mt-5">
