@@ -9,19 +9,10 @@ const WorkoutPage = () => {
     " " +
     new Date().toLocaleString("en-in", { year: "numeric" });
 
-  const [exerciseCount, setExerciseCount] = useState(0);
   const [currentWorkout, setCurrentWorkout] = useState("");
 
-  const addExercise = () => {
-    setExerciseCount((count) => count + 1);
-  };
-
-  const exerciseList = Array(exerciseCount)
-    .fill()
-    .map((v, i) => i);
-
   const handleWorkoutChange = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     setCurrentWorkout(value);
   };
 
@@ -54,19 +45,17 @@ const WorkoutPage = () => {
               <option value="abs">Abs</option>
             </select>
           </div>
-          {/* <div className="mt-4">
-            <h3
-              onClick={addExercise}
-              className="p-2 border-2 border-green-500 cursor-pointer"
-            >
-              <span className="mr-2">➕</span> Add Exercice
-            </h3>
-          </div> */}
+
           {currentWorkout !== "" ? (
             <Exercise currentWorkout={currentWorkout} />
           ) : (
             ""
           )}
+          <div className="flex justify-end mt-5">
+            <button className="bg-green-300 border-2 border-green-500 px-3 py-2 transition rounded-lg hover:bg-green-500 hover:text-white">
+              Save Workout
+            </button>
+          </div>
         </div>
       </div>
     </div>
