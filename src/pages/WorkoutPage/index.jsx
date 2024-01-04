@@ -52,7 +52,7 @@ const WorkoutPage = () => {
             ""
           )}
           <div className="flex justify-end mt-5">
-            <button className="bg-green-300 border-2 border-green-500 px-3 py-2 transition rounded-lg hover:bg-green-500 hover:text-white">
+            <button className="bg-gradient-to-r from-violet-500 to-fuchsia-500  px-3 py-2 transition rounded-lg text-white">
               Save Workout
             </button>
           </div>

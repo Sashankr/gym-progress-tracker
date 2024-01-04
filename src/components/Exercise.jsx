@@ -36,9 +36,15 @@ const Exercise = ({ currentWorkout }) => {
           ))}
         </select>
       </div>
-      <div>
-        <button className="">Start Workout for {exerciseName}</button>
-      </div>
+      {currentExercise !== "" ? (
+        <div>
+          <button className="px-3 py-2 bg-teal-500 text-white mt-5 rounded-lg">
+            Start {exerciseName} Workout
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
