@@ -46,7 +46,7 @@ const Exercise = ({ currentWorkout }) => {
         <div>
           <button
             onClick={startWorkout}
-            className="px-3 py-2 bg-teal-500 text-white mt-5 rounded-lg"
+            className="px-3 py-2 bg-teal-400 text-white mt-5 rounded-lg"
           >
             Start {exerciseName} Workout
           </button>
@@ -55,7 +55,10 @@ const Exercise = ({ currentWorkout }) => {
             return (
               <WorkoutDetails
                 key={item}
-                currentExercise={{ name: exerciseName, value: currentExercise }}
+                currentExercise={{
+                  name: exercisesMapping[item],
+                  value: currentExercise,
+                }}
               />
             );
           })}
