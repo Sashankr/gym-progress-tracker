@@ -15,8 +15,8 @@ const Accordian = ({ title, children }) => {
         <i className="fa-solid fa-chevron-down"></i>
       </div>
       <div
-        className={`accordian-body transition-all relative shadow-lg p-3 ${
-          isOpen ? "h-max opacity-1" : "h-0 opacity-0 -z-10"
+        className={`accordian-body transition-height duration-500 relative shadow-lg rounded-lg p-3 ${
+          isOpen ? "h-max opacity-1" : "h-0 opacity-0 -z-10 -top-10"
         }`}
       >
         {children}
