@@ -46,7 +46,7 @@ const Exercise = ({ currentWorkout }) => {
         <div>
           <button
             onClick={startWorkout}
-            className="px-3 py-2 bg-teal-400 text-white mt-5 rounded-lg"
+            className="px-3 py-2 bg-indigo-800 text-white mt-5 rounded-lg"
           >
             Start {exerciseName} Workout
           </button>
