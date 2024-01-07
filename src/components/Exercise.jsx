@@ -43,16 +43,7 @@ const Exercise = ({ currentWorkout }) => {
           ))}
         </select>
       </div>
-      <Accordian title="Lat workout details">
-        <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus,
-          et. Perspiciatis tempore ducimus, delectus illo aliquam doloremque
-          assumenda obcaecati! Eligendi repellat neque eos similique, nesciunt
-          fuga adipisci quaerat veritatis libero cumque ipsam in officiis
-          blanditiis nihil. Aperiam, magni pariatur magnam molestias accusantium
-          quae. Optio nam unde possimus delectus nostrum soluta?
-        </div>
-      </Accordian>
+
       {currentExercise !== "" ? (
         <div>
           <button

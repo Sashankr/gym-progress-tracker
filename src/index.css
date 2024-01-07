@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.accordian-body {
+  transition: all 0.4s ease;
+}
