@@ -61,6 +61,7 @@ const Exercise = ({ currentWorkout }) => {
                   name: exercisesMapping[item],
                   value: currentExercise,
                 }}
+                currentWorkout={workoutName}
               />
             );
           })}
