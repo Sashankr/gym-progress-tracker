@@ -4,7 +4,6 @@ import { getExercisesList } from "../helpers/getExerciseList";
 import { getWorkoutName } from "../helpers/getWorkoutName";
 import { exercisesMapping } from "../helpers/exerciseMapping";
 import WorkoutDetails from "./WorkoutDetails";
-import Accordian from "./Accordian";
 
 const Exercise = ({ currentWorkout }) => {
   const workoutName = getWorkoutName(currentWorkout);
@@ -29,7 +28,7 @@ const Exercise = ({ currentWorkout }) => {
       <div>
         <select
           onChange={updateCurrentExercise}
-          className="p-3"
+          className="p-3 border-2 rounded-lg"
           name="exercise"
           id="exercise"
         >
@@ -61,7 +60,9 @@ const Exercise = ({ currentWorkout }) => {
                   name: exercisesMapping[item],
                   value: currentExercise,
                 }}
+                currentExerciseId={item}
                 currentWorkout={workoutName}
+                currentWorkoutId={currentWorkout}
               />
             );
           })}

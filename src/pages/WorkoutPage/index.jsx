@@ -29,7 +29,7 @@ const WorkoutPage = () => {
             </label>
             <select
               onChange={handleWorkoutChange}
-              className="p-3"
+              className="p-3 border-2 rounded-lg"
               name="workout"
               id="workout"
             >
