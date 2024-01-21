@@ -34,7 +34,6 @@ const WorkoutDetails = ({
       });
     });
   };
-  console.log(workoutData);
 
   const addNewSet = () => {
     setWorkoutData((prev) => {
