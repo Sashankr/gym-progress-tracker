@@ -86,7 +86,10 @@ const WorkoutDetails = ({
           <div className="p-4 shadow-xl rounded-lg">
             {Array.from(workoutData.values()).map((item, index) => {
               return (
-                <div key={item.setId} className="flex gap-5 mb-5 items-center">
+                <div
+                  key={item.setId}
+                  className="flex md:flex-row gap-5 mb-5 md:items-center flex-col"
+                >
                   <div>Set {item?.setId}</div>
                   <div>
                     <input
