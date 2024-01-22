@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Exercise from "../../components/Exercise";
+import { useNavigate } from "react-router-dom";
 
 const WorkoutPage = () => {
+  const navigate = useNavigate();
   const date =
     new Date().toLocaleString("en-in", { month: "long" }) +
     " " +
@@ -52,7 +54,18 @@ const WorkoutPage = () => {
             ""
           )}
           <div className="flex justify-end mt-5">
-            <button className="bg-gradient-to-r from-violet-500 to-fuchsia-500  px-3 py-2 transition rounded-lg text-white">
+            <button
+              onClick={() => {
+                const answer = confirm(
+                  "Are you sure you want to save this workout?"
+                );
+                console.log(answer);
+                if (answer) {
+                  navigate("/workout-info");
+                }
+              }}
+              className="bg-gradient-to-r from-violet-500 to-fuchsia-500  px-3 py-2 transition rounded-lg text-white"
+            >
               Save Workout
             </button>
           </div>

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Accordian from "./Accordian";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { UPDATE_WORKOUT_DETAILS } from "../redux/features/workoutDetailsSlice";
 
 const WorkoutDetails = ({
@@ -12,8 +12,6 @@ const WorkoutDetails = ({
 }) => {
   const { name, value } = currentExercise;
   const dispatch = useDispatch();
-  const workoutDetails = useSelector((state) => state.workoutDetails);
-  console.log(workoutDetails);
 
   const [workoutData, setWorkoutData] = useState(
     new Map([
@@ -23,8 +21,8 @@ const WorkoutDetails = ({
           setId: 1,
           exerciseName: currentExerciseId,
           workoutName: currentWorkoutId,
-          weight: 0,
-          reps: 0,
+          weight: "",
+          reps: "",
         },
       ],
     ])
@@ -38,9 +36,14 @@ const WorkoutDetails = ({
       ...currentWorkoutDetails,
       [inputName]: inputValue !== "" ? Number(inputValue) : "",
     };
-    setWorkoutData(
-      (previousWorkoutDetails) =>
-        new Map(previousWorkoutDetails.set(currentSet, updatedSet))
+    const updatedMap = new Map([...workoutData]);
+    updatedMap.set(currentSet, updatedSet);
+    setWorkoutData(updatedMap);
+    dispatch(
+      UPDATE_WORKOUT_DETAILS({
+        exerciseName: currentExerciseId,
+        workoutData: Array.from(updatedMap.values()),
+      })
     );
   };
 
@@ -50,12 +53,17 @@ const WorkoutDetails = ({
       setId: currentSize + 1,
       exerciseName: currentExerciseId,
       workoutName: currentWorkoutId,
-      weight: 0,
-      reps: 0,
+      weight: "",
+      reps: "",
     };
-    setWorkoutData(
-      (prevWorkoutData) =>
-        new Map(prevWorkoutData.set(currentSize + 1, newSetData))
+    const updatedMap = new Map([...workoutData]);
+    updatedMap.set(currentSize + 1, newSetData);
+    setWorkoutData(updatedMap);
+    dispatch(
+      UPDATE_WORKOUT_DETAILS({
+        exerciseName: currentExerciseId,
+        workoutData: Array.from(updatedMap.values()),
+      })
     );
   };
 
@@ -63,6 +71,12 @@ const WorkoutDetails = ({
     const workoutUpdated = new Map([...workoutData]);
     workoutUpdated.delete(setId);
     setWorkoutData(workoutUpdated);
+    dispatch(
+      UPDATE_WORKOUT_DETAILS({
+        exerciseName: currentExerciseId,
+        workoutData: Array.from(workoutUpdated.values()),
+      })
+    );
   };
 
   return (

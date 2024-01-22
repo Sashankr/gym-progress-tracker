@@ -4,6 +4,7 @@ import { getExercisesList } from "../helpers/getExerciseList";
 import { getWorkoutName } from "../helpers/getWorkoutName";
 import { exercisesMapping } from "../helpers/exerciseMapping";
 import WorkoutDetails from "./WorkoutDetails";
+import { useSelector } from "react-redux";
 
 const Exercise = ({ currentWorkout }) => {
   const workoutName = getWorkoutName(currentWorkout);
