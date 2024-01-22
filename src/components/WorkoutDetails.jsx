@@ -34,7 +34,7 @@ const WorkoutDetails = ({
     const currentWorkoutDetails = workoutData.get(currentSet);
     const updatedSet = {
       ...currentWorkoutDetails,
-      [inputName]: inputValue !== "" ? Number(inputValue) : "",
+      [inputName]: inputValue !== "" ? inputValue : "",
     };
     const updatedMap = new Map([...workoutData]);
     updatedMap.set(currentSet, updatedSet);

@@ -1,8 +1,13 @@
 import { useState } from "react";
 import Exercise from "../../components/Exercise";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { UPDATE_WEIGHT } from "../../redux/features/weightTrackerSlice";
 
 const WorkoutPage = () => {
+  const dispatch = useDispatch();
+  const currentBodyWeight = useSelector((state) => state.weightTracker).weight;
+
   const navigate = useNavigate();
   const date =
     new Date().toLocaleString("en-in", { month: "long" }) +
@@ -24,6 +29,18 @@ const WorkoutPage = () => {
         <h2 className="text-lg font-medium underline">
           Adding Workout for {date}
         </h2>
+        <div className="flex flex-col gap-2 w-1/4">
+          <label htmlFor="weight">Body Weight ( kg )</label>
+          <input
+            type="text"
+            placeholder="Enter weight..."
+            onChange={(e) => {
+              dispatch(UPDATE_WEIGHT(e.target.value));
+            }}
+            value={currentBodyWeight}
+            className="border-2 px-3 py-2 rounded-lg outline-0 focus:border-blue-950	 active:border-blue-950"
+          />
+        </div>
         <div className="p-2 shadow-xl rounded-xl mt-4">
           <div className="flex flex-col gap-2">
             <label className="font-medium" htmlFor="workout">
