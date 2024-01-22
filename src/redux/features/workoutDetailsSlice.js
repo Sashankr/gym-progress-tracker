@@ -7,10 +7,13 @@ const workoutDetailsSlice = createSlice({
   initialState,
   reducers: {
     UPDATE_WORKOUT_DETAILS: (state, action) => {
-      const { exerciseName, workoutData } = action.payload;
+      const { exerciseName, workoutData, workoutName } = action.payload;
       return {
         ...state,
-        [exerciseName]: workoutData,
+        [workoutName]: {
+          ...state[workoutName],
+          [exerciseName]: workoutData,
+        },
       };
     },
   },

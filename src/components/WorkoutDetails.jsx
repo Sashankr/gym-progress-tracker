@@ -41,6 +41,7 @@ const WorkoutDetails = ({
     setWorkoutData(updatedMap);
     dispatch(
       UPDATE_WORKOUT_DETAILS({
+        workoutName: currentWorkoutId,
         exerciseName: currentExerciseId,
         workoutData: Array.from(updatedMap.values()),
       })
@@ -61,6 +62,8 @@ const WorkoutDetails = ({
     setWorkoutData(updatedMap);
     dispatch(
       UPDATE_WORKOUT_DETAILS({
+        workoutName: currentWorkoutId,
+
         exerciseName: currentExerciseId,
         workoutData: Array.from(updatedMap.values()),
       })
@@ -73,6 +76,7 @@ const WorkoutDetails = ({
     setWorkoutData(workoutUpdated);
     dispatch(
       UPDATE_WORKOUT_DETAILS({
+        workoutName: currentWorkoutId,
         exerciseName: currentExerciseId,
         workoutData: Array.from(workoutUpdated.values()),
       })
