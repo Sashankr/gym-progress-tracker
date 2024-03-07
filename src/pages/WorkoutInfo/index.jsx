@@ -13,6 +13,9 @@ const WorkoutInfo = () => {
   const workoutDetails = useSelector((state) => state.workoutDetails);
   const currentBodyWeight = useSelector((state) => state.weightTracker).weight;
 
+  console.log(workoutDetails);
+  console.log(currentBodyWeight);
+
   return (
     <div className="workout-info container mx-auto p-4">
       <h3 className="text-2xl mb-2">Workout Details for {date}</h3>

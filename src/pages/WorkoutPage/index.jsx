@@ -3,6 +3,7 @@ import Exercise from "../../components/Exercise";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_WEIGHT } from "../../redux/features/weightTrackerSlice";
+import { toast } from "react-hot-toast";
 
 const WorkoutPage = () => {
   const dispatch = useDispatch();
@@ -75,11 +76,10 @@ const WorkoutPage = () => {
             <button
               onClick={async () => {
                 const answer = confirm(
-                  "Are you sure you want to save this workout?",
+                  "Are you sure you want to save this workout?"
                 );
                 console.log(answer);
                 if (answer) {
-                  debugger;
                   const response = await fetch(
                     "http://localhost:3001/api/v1/workout/save-workout",
                     {
@@ -91,9 +91,14 @@ const WorkoutPage = () => {
                       headers: {
                         "Content-Type": "application/json",
                       },
-                    },
+                    }
                   );
-                  // navigate("/workout-info");
+                  if (response.status === 201) {
+                    toast.success("Workout Saved");
+                  } else {
+                    toast.error("Something went wrong");
+                  }
+                  navigate("/workout-info");
                 }
               }}
               className="rounded-lg bg-gradient-to-r from-violet-500  to-fuchsia-500 px-3 py-2 text-white transition"
