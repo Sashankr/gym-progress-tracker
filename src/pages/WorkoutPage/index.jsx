@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_WEIGHT } from "../../redux/features/weightTrackerSlice";
 import { toast } from "react-hot-toast";
+import { useSaveWorkoutMutation } from "../../services/workout";
 
 const WorkoutPage = () => {
   const dispatch = useDispatch();
   const currentBodyWeight = useSelector((state) => state.weightTracker).weight;
   const workoutDetails = useSelector((state) => state.workoutDetails);
+  const [saveWorkout, { isLoading }] = useSaveWorkoutMutation();
 
   const navigate = useNavigate();
   const date =
@@ -80,20 +82,12 @@ const WorkoutPage = () => {
                 );
                 console.log(answer);
                 if (answer) {
-                  const response = await fetch(
-                    "http://localhost:3001/api/v1/workout/save-workout",
-                    {
-                      method: "POST",
-                      body: JSON.stringify({
-                        bodyWeight: currentBodyWeight,
-                        workoutDetails,
-                      }),
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                    }
-                  );
-                  if (response.status === 201) {
+                  debugger;
+                  const response = await saveWorkout({
+                    bodyWeight: currentBodyWeight,
+                    workoutDetails,
+                  });
+                  if (response.data.status === 201) {
                     toast.success("Workout Saved");
                   } else {
                     toast.error("Something went wrong");
@@ -101,6 +95,7 @@ const WorkoutPage = () => {
                   navigate("/workout-info");
                 }
               }}
+              disabled={isLoading}
               className="rounded-lg bg-gradient-to-r from-violet-500  to-fuchsia-500 px-3 py-2 text-white transition"
             >
               Save Workout
