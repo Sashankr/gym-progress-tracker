@@ -40,12 +40,14 @@ const formSchema = z.object({
   emailId: z.string().email({
     message: "Invalid email format.",
   }),
-  password: z.string().max(100, {
-    message: "Password must be at most 100 characters.",
-  }),
-  confirmPassword: z.string().refine((value) => value === formSchema.password, {
-    message: "Passwords do not match.",
-  }),
+  password: z
+    .string()
+    .min(10, {
+      message: "Password must have min of 10 characters",
+    })
+    .max(100, {
+      message: "Password must be at most 100 characters.",
+    }),
 });
 
 const SignupPage = () => {
@@ -54,6 +56,9 @@ const SignupPage = () => {
     defaultValues: {
       username: "",
       fullName: "",
+      emailId: "",
+      password: "",
+      confirmPassword: "",
     },
   });
 
@@ -66,11 +71,11 @@ const SignupPage = () => {
     <div className="bg-login h-screen bg-cover">
       <div className="signup grid grid-cols-2 h-full">
         <div></div>
-        <div className="bg-black opacity-[0.9]  h-full">
+        <div className="bg-background opacity-[0.9]  h-full">
           <div className="flex h-full p-5">
             <section className="w-full">
-              <h3 className="text-3xl text-white">Gym Progress Tracker</h3>
-              <h3 className="text-3xl mt-5 text-white">Signup</h3>
+              <h3 className="text-3xl ">Gym Progress Tracker</h3>
+              <h3 className="text-3xl mt-3 mb-5 ">Signup</h3>
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
@@ -81,7 +86,7 @@ const SignupPage = () => {
                     name="fullName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white">Full Name</FormLabel>
+                        <FormLabel className="">Full Name</FormLabel>
                         <FormControl>
                           <Input placeholder="Enter Full Name" {...field} />
                         </FormControl>
@@ -95,7 +100,7 @@ const SignupPage = () => {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white">Username</FormLabel>
+                        <FormLabel className="">Username</FormLabel>
                         <FormControl>
                           <Input placeholder="Enter Username" {...field} />
                         </FormControl>
@@ -109,7 +114,7 @@ const SignupPage = () => {
                     name="emailId"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white">Email Id</FormLabel>
+                        <FormLabel className="">Email Id</FormLabel>
                         <FormControl>
                           <Input placeholder="Enter Email Id" {...field} />
                         </FormControl>
@@ -123,7 +128,7 @@ const SignupPage = () => {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white">Password</FormLabel>
+                        <FormLabel className="">Password</FormLabel>
                         <FormControl>
                           <Input
                             placeholder="Enter Password"
@@ -141,9 +146,7 @@ const SignupPage = () => {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white">
-                          Confirm Password
-                        </FormLabel>
+                        <FormLabel className="">Confirm Password</FormLabel>
                         <FormControl>
                           <Input
                             type="password"
