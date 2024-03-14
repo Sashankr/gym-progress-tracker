@@ -14,41 +14,47 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const formSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(40, {
-      message: "Username must be at most 40 characters.",
-    })
-    .regex(/^[A-Za-z ]+$/, {
-      message: "Username must contain only letters and spaces.",
+const formSchema = z
+  .object({
+    username: z
+      .string()
+      .min(2, {
+        message: "Username must be at least 2 characters.",
+      })
+      .max(40, {
+        message: "Username must be at most 40 characters.",
+      })
+      .regex(/^[A-Za-z ]+$/, {
+        message: "Username must contain only letters and spaces.",
+      }),
+    fullName: z
+      .string()
+      .min(2, {
+        message: "Full Name must be at least 2 characters.",
+      })
+      .max(40, {
+        message: "Full Name must be at most 40 characters.",
+      })
+      .regex(/^[A-Za-z ]+$/, {
+        message: "Full Name must contain only letters and spaces.",
+      }),
+    emailId: z.string().email({
+      message: "Invalid email format.",
     }),
-  fullName: z
-    .string()
-    .min(2, {
-      message: "Full Name must be at least 2 characters.",
-    })
-    .max(40, {
-      message: "Full Name must be at most 40 characters.",
-    })
-    .regex(/^[A-Za-z ]+$/, {
-      message: "Full Name must contain only letters and spaces.",
-    }),
-  emailId: z.string().email({
-    message: "Invalid email format.",
-  }),
-  password: z
-    .string()
-    .min(10, {
-      message: "Password must have min of 10 characters",
-    })
-    .max(100, {
-      message: "Password must be at most 100 characters.",
-    }),
-});
+    password: z
+      .string()
+      .min(10, {
+        message: "Password must have min of 10 characters",
+      })
+      .max(100, {
+        message: "Password must be at most 100 characters.",
+      }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"], // path of error
+  });
 
 const SignupPage = () => {
   const form = useForm({
@@ -74,8 +80,8 @@ const SignupPage = () => {
         <div className="bg-background opacity-[0.9]  h-full">
           <div className="flex h-full p-5">
             <section className="w-full">
-              <h3 className="text-3xl ">Gym Progress Tracker</h3>
-              <h3 className="text-3xl mt-3 mb-5 ">Signup</h3>
+              <h3 className="text-3xl text-blue-600 ">Gym Progress Tracker</h3>
+              <h3 className="text-3xl text-blue-600 mt-3 mb-5 ">Signup</h3>
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
