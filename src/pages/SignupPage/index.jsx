@@ -84,7 +84,7 @@ const SignupPage = () => {
     try {
       const response = await signup(values);
       if (!response.error && response.data.status === 201) {
-        navigate("/login");
+        navigate("/add-workout");
         sessionStorage.setItem("profile", JSON.stringify(response.data.data));
         toast({
           title: response.data.message,

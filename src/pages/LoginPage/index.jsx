@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../services/auth";
 
 const formSchema = z.object({
   emailId: z.string().email({
@@ -27,12 +28,11 @@ const formSchema = z.object({
     .max(100, {
       message: "Password must be at most 100 characters.",
     }),
-  confirmPassword: z.string(),
 });
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
+  const [login, { isLoading }] = useLoginMutation();
   const { toast } = useToast();
 
   const form = useForm({
@@ -47,29 +47,34 @@ const LoginPage = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    // debugger;
+    debugger;
 
-    // try {
-    //   const response = await signup(values);
-    //   if (!response.error && response.data.status === 201) {
-    //     navigate("/login");
-    //     sessionStorage.setItem("profile", JSON.stringify(response.data.data));
-    //     toast({
-    //       title: response.data.message,
-    //       description: "Welcome to gym progress tracker!",
-    //     });
-    //   } else {
-    //     toast({
-    //       title: response.error.data.message,
-    //     });
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    //   toast({
-    //     title: "Something went wrong",
-    //     description: "We will check what went wrong",
-    //   });
-    // }
+    try {
+      const response = await login(values);
+      if (response.error) {
+        return toast({
+          title: response.error.data.message,
+        });
+      }
+      if (response.data.status === 200) {
+        navigate("/add-workout");
+        sessionStorage.setItem("profile", JSON.stringify(response.data.data));
+        toast({
+          title: response.data.message,
+          description: "Welcome to gym progress tracker!",
+        });
+      } else {
+        toast({
+          title: response.error.data.message,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: "Something went wrong",
+        description: "We will check what went wrong",
+      });
+    }
   }
 
   return (
@@ -94,6 +99,7 @@ const LoginPage = () => {
                         <FormLabel className="">Email Id</FormLabel>
                         <FormControl>
                           <Input
+                            className="text-slate-900"
                             autoComplete="off"
                             placeholder="Enter Email Id"
                             {...field}
@@ -113,6 +119,7 @@ const LoginPage = () => {
                         <FormControl>
                           <Input
                             autoComplete="off"
+                            className="text-slate-900"
                             placeholder="Enter Password"
                             type="password"
                             {...field}
@@ -124,7 +131,9 @@ const LoginPage = () => {
                     )}
                   />
 
-                  <Button type="submit">Login</Button>
+                  <Button disabled={isLoading} type="submit">
+                    Login
+                  </Button>
                 </form>
               </Form>
             </section>
