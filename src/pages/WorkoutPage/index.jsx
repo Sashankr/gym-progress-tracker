@@ -12,6 +12,10 @@ const WorkoutPage = () => {
   const currentBodyWeight = useSelector((state) => state.weightTracker).weight;
   const workoutDetails = useSelector((state) => state.workoutDetails);
   const [saveWorkout, { isLoading }] = useSaveWorkoutMutation();
+  const { user: profileDetails } = JSON.parse(
+    sessionStorage.getItem("profile")
+  );
+  console.log(profileDetails);
 
   const navigate = useNavigate();
   const date =
@@ -85,10 +89,10 @@ const WorkoutPage = () => {
                   );
                   console.log(answer);
                   if (answer) {
-                    debugger;
                     const response = await saveWorkout({
                       bodyWeight: currentBodyWeight,
                       workoutDetails,
+                      userId: profileDetails?._id,
                     });
                     if (response.data.status === 201) {
                       toast.success("Workout Saved");
