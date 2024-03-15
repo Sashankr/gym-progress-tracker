@@ -79,8 +79,8 @@ const LoginPage = () => {
         <div className="bg-slate-900 opacity-[0.9] text-white h-full">
           <div className="flex h-full p-5">
             <section className="w-full ">
-              <h3 className="text-3xl text-blue-600 ">Gym Progress Tracker</h3>
-              <h3 className="text-3xl text-blue-600 mt-3 mb-5 ">Signup</h3>
+              <h3 className="text-3xl text-blue-200 ">Gym Progress Tracker</h3>
+              <h3 className="text-3xl text-blue-200 mt-3 mb-5 ">Login</h3>
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
