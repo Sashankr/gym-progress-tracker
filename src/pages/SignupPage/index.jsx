@@ -105,8 +105,8 @@ const SignupPage = () => {
   }
   return (
     <div className="bg-login h-screen bg-cover">
-      <div className="signup grid grid-cols-2 h-full">
-        <div></div>
+      <div className="signup grid grid-cols-1 md:grid-cols-2  h-full">
+        <div className="hidden md:block"></div>
         <div className="bg-background opacity-[0.9]  h-full">
           <div className="flex h-full p-5">
             <section className="w-full ">
