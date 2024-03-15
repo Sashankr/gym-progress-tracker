@@ -15,7 +15,6 @@ const WorkoutPage = () => {
   const { user: profileDetails } = JSON.parse(
     sessionStorage.getItem("profile")
   );
-  console.log(profileDetails);
 
   const navigate = useNavigate();
   const date =
