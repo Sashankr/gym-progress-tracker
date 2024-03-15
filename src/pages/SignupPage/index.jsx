@@ -12,6 +12,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useSignupMutation } from "../../services/auth";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z
   .object({
@@ -56,6 +58,9 @@ const formSchema = z
   });
 
 const SignupPage = () => {
+  const [signup, { isLoading, isSuccess }] = useSignupMutation();
+  const { toast } = useToast();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,10 +72,17 @@ const SignupPage = () => {
     },
   });
 
-  function onSubmit(values) {
+  async function onSubmit(values) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    debugger;
+    const response = await signup(values);
+
+    toast({
+      title: response.data.message,
+      description: "Welcome to gym progress tracker!",
+    });
   }
   return (
     <div className="bg-login h-screen bg-cover">
@@ -163,7 +175,9 @@ const SignupPage = () => {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit">Submit</Button>
+                  <Button disabled={isLoading} type="submit">
+                    Submit
+                  </Button>
                 </form>
               </Form>
             </section>
