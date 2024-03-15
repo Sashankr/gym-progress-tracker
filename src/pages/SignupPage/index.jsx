@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -12,8 +12,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useSignupMutation } from "../../services/auth";
 import { useToast } from "@/components/ui/use-toast";
+import { useSignupMutation } from "../../services/auth";
+
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z
   .object({
@@ -58,6 +60,7 @@ const formSchema = z
   });
 
 const SignupPage = () => {
+  const navigate = useNavigate();
   const [signup, { isLoading, isSuccess }] = useSignupMutation();
   const { toast } = useToast();
 
@@ -77,12 +80,28 @@ const SignupPage = () => {
     // ✅ This will be type-safe and validated.
     console.log(values);
     debugger;
-    const response = await signup(values);
 
-    toast({
-      title: response.data.message,
-      description: "Welcome to gym progress tracker!",
-    });
+    try {
+      const response = await signup(values);
+      if (!response.error && response.data.status === 201) {
+        navigate("/login");
+        sessionStorage.setItem("profile", JSON.stringify(response.data.data));
+        toast({
+          title: response.data.message,
+          description: "Welcome to gym progress tracker!",
+        });
+      } else {
+        toast({
+          title: response.error.data.message,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: "Something went wrong",
+        description: "We will check what went wrong",
+      });
+    }
   }
   return (
     <div className="bg-login h-screen bg-cover">
@@ -90,7 +109,7 @@ const SignupPage = () => {
         <div></div>
         <div className="bg-background opacity-[0.9]  h-full">
           <div className="flex h-full p-5">
-            <section className="w-full">
+            <section className="w-full ">
               <h3 className="text-3xl text-blue-600 ">Gym Progress Tracker</h3>
               <h3 className="text-3xl text-blue-600 mt-3 mb-5 ">Signup</h3>
               <Form {...form}>
@@ -105,7 +124,11 @@ const SignupPage = () => {
                       <FormItem>
                         <FormLabel className="">Full Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter Full Name" {...field} />
+                          <Input
+                            autoComplete="off"
+                            placeholder="Enter Full Name"
+                            {...field}
+                          />
                         </FormControl>
 
                         <FormMessage />
@@ -119,7 +142,11 @@ const SignupPage = () => {
                       <FormItem>
                         <FormLabel className="">Username</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter Username" {...field} />
+                          <Input
+                            autoComplete="off"
+                            placeholder="Enter Username"
+                            {...field}
+                          />
                         </FormControl>
 
                         <FormMessage />
@@ -133,7 +160,11 @@ const SignupPage = () => {
                       <FormItem>
                         <FormLabel className="">Email Id</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter Email Id" {...field} />
+                          <Input
+                            autoComplete="off"
+                            placeholder="Enter Email Id"
+                            {...field}
+                          />
                         </FormControl>
 
                         <FormMessage />
@@ -148,6 +179,7 @@ const SignupPage = () => {
                         <FormLabel className="">Password</FormLabel>
                         <FormControl>
                           <Input
+                            autoComplete="off"
                             placeholder="Enter Password"
                             type="password"
                             {...field}
@@ -167,6 +199,7 @@ const SignupPage = () => {
                         <FormControl>
                           <Input
                             type="password"
+                            autoComplete="off"
                             placeholder="Confirm Password"
                             {...field}
                           />

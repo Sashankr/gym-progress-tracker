@@ -1,10 +1,134 @@
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
+
+const formSchema = z.object({
+  emailId: z.string().email({
+    message: "Invalid email format.",
+  }),
+  password: z
+    .string()
+    .min(10, {
+      message: "Password must have min of 10 characters",
+    })
+    .max(100, {
+      message: "Password must be at most 100 characters.",
+    }),
+  confirmPassword: z.string(),
+});
+
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const { toast } = useToast();
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      emailId: "",
+      password: "",
+    },
+  });
+
+  async function onSubmit(values) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+    // debugger;
+
+    // try {
+    //   const response = await signup(values);
+    //   if (!response.error && response.data.status === 201) {
+    //     navigate("/login");
+    //     sessionStorage.setItem("profile", JSON.stringify(response.data.data));
+    //     toast({
+    //       title: response.data.message,
+    //       description: "Welcome to gym progress tracker!",
+    //     });
+    //   } else {
+    //     toast({
+    //       title: response.error.data.message,
+    //     });
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    //   toast({
+    //     title: "Something went wrong",
+    //     description: "We will check what went wrong",
+    //   });
+    // }
+  }
+
   return (
     <div className="bg-login h-screen bg-cover">
       <div className="login grid grid-cols-2 h-full">
         <div></div>
         <div className="bg-slate-900 opacity-[0.9] text-white h-full">
-          <h3>Login</h3>
+          <div className="flex h-full p-5">
+            <section className="w-full ">
+              <h3 className="text-3xl text-blue-600 ">Gym Progress Tracker</h3>
+              <h3 className="text-3xl text-blue-600 mt-3 mb-5 ">Signup</h3>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-8"
+                >
+                  <FormField
+                    control={form.control}
+                    name="emailId"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="">Email Id</FormLabel>
+                        <FormControl>
+                          <Input
+                            autoComplete="off"
+                            placeholder="Enter Email Id"
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="">Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            autoComplete="off"
+                            placeholder="Enter Password"
+                            type="password"
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button type="submit">Login</Button>
+                </form>
+              </Form>
+            </section>
+          </div>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
 import { workoutApi } from "./workout";
+import { authApi } from "./auth";
 
-export { workoutApi };
+export { workoutApi, authApi };
