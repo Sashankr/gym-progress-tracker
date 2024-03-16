@@ -3,11 +3,13 @@ import Exercise from "../../components/Exercise";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_WEIGHT } from "../../redux/features/weightTrackerSlice";
-import { toast } from "react-hot-toast";
 import { useSaveWorkoutMutation } from "../../services/workout";
+import { useToast } from "@/components/ui/use-toast";
+
 import Navbar from "../../components/Navbar";
 
 const WorkoutPage = () => {
+  const { toast } = useToast();
   const dispatch = useDispatch();
   const currentBodyWeight = useSelector((state) => state.weightTracker).weight;
   const workoutDetails = useSelector((state) => state.workoutDetails);
@@ -88,17 +90,28 @@ const WorkoutPage = () => {
                   );
                   console.log(answer);
                   if (answer) {
-                    const response = await saveWorkout({
-                      bodyWeight: currentBodyWeight,
-                      workoutDetails,
-                      userId: profileDetails?._id,
-                    });
-                    if (response.data.status === 201) {
-                      toast.success("Workout Saved");
-                    } else {
-                      toast.error("Something went wrong");
+                    try {
+                      const response = await saveWorkout({
+                        bodyWeight: currentBodyWeight,
+                        workoutDetails,
+                        userId: profileDetails?._id,
+                      });
+                      if (response.data.status === 201) {
+                        toast({
+                          description: response.data.message,
+                        });
+                      } else {
+                        toast({
+                          description: response.data.message,
+                        });
+                      }
+                      navigate("/workout-info");
+                    } catch (err) {
+                      console.log(err);
+                      toast({
+                        description: "Something went wrong",
+                      });
                     }
-                    navigate("/workout-info");
                   }
                 }}
                 disabled={isLoading}

@@ -1,6 +1,7 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const API_URL = import.meta.env.VITE_API_ENDPOINT;
+import { useToast } from "@/components/ui/use-toast";
 
 // Define a service using a base URL and expected endpoints
 export const workoutApi = createApi({
@@ -24,9 +25,18 @@ export const workoutApi = createApi({
         body,
       }),
     }),
+
+    getAllWorkouts: builder.query({
+      query: ({ page, limit, date = "" }) =>
+        `/my-workouts?page=${page}&limit=${limit}&date=${date}`,
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useSaveWorkoutMutation } = workoutApi;
+export const {
+  useSaveWorkoutMutation,
+  useGetAllWorkoutsQuery,
+  useLazyGetAllWorkoutsQuery,
+} = workoutApi;
