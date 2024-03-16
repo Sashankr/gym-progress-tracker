@@ -15,7 +15,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { useSignupMutation } from "../../services/auth";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const formSchema = z
   .object({
@@ -128,6 +128,7 @@ const SignupPage = () => {
                             autoComplete="off"
                             placeholder="Enter Full Name"
                             {...field}
+                            tabIndex="0"
                           />
                         </FormControl>
 
@@ -146,6 +147,7 @@ const SignupPage = () => {
                             autoComplete="off"
                             placeholder="Enter Username"
                             {...field}
+                            tabIndex="1"
                           />
                         </FormControl>
 
@@ -164,6 +166,7 @@ const SignupPage = () => {
                             autoComplete="off"
                             placeholder="Enter Email Id"
                             {...field}
+                            tabIndex="2"
                           />
                         </FormControl>
 
@@ -183,6 +186,8 @@ const SignupPage = () => {
                             placeholder="Enter Password"
                             type="password"
                             {...field}
+                            customKey={0}
+                            tabIndex="3"
                           />
                         </FormControl>
 
@@ -201,7 +206,9 @@ const SignupPage = () => {
                             type="password"
                             autoComplete="off"
                             placeholder="Confirm Password"
+                            tabIndex="4"
                             {...field}
+                            customKey={1}
                           />
                         </FormControl>
                         <FormMessage />
@@ -213,6 +220,14 @@ const SignupPage = () => {
                   </Button>
                 </form>
               </Form>
+              <div className="mt-5">
+                <p>
+                  Already have an account?{" "}
+                  <Link className="text-blue-500" to="/login">
+                    Login Here
+                  </Link>{" "}
+                </p>
+              </div>
             </section>
           </div>
         </div>
