@@ -65,7 +65,7 @@ const LoginPage = () => {
         });
       } else {
         toast({
-          title: response.error.data.message,
+          title: response.data.message,
         });
       }
     } catch (err) {
