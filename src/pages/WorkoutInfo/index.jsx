@@ -20,7 +20,7 @@ const WorkoutInfo = () => {
   return (
     <>
       <Navbar />
-      <div className="workout-info container mx-auto p-4">
+      <div className="workout-info px-4 md:px-6 container mx-auto ">
         <h3 className="text-2xl mb-2">Workout Details for {date}</h3>
         <span className="mb-3">Body Weight : {currentBodyWeight} kg</span>
         {Object.keys(workoutDetails).map((item, index) => {
