@@ -19,7 +19,7 @@ export default function Navbar() {
           <div className="grid gap-2 py-6">
             <Link
               className="flex w-full items-center py-2 text-lg font-semibold"
-              to="#"
+              to="/add-workout"
             >
               <span className="font-medium p-3 rounded-lg bg-slate-700 text-white transition hover:bg-slate-600">
                 Gym Progress Tracker 💪🏼
@@ -33,7 +33,7 @@ export default function Navbar() {
             </p>
             <Link
               className="flex w-full items-center py-2 text-lg font-semibold"
-              to="#"
+              to="/add-workout"
             >
               Home
             </Link>
@@ -56,7 +56,7 @@ export default function Navbar() {
           </div>
         </SheetContent>
       </Sheet>
-      <Link className="mr-6 hidden lg:flex" to="#">
+      <Link className="mr-6 hidden lg:flex" to="/add-workout">
         <span className="font-medium p-3 rounded-lg bg-slate-700 text-white transition hover:bg-slate-600">
           Gym Progress Tracker 💪🏼
         </span>
