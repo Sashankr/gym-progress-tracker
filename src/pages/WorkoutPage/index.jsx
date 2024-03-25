@@ -14,9 +14,7 @@ const WorkoutPage = () => {
   const currentBodyWeight = useSelector((state) => state.weightTracker).weight;
   const workoutDetails = useSelector((state) => state.workoutDetails);
   const [saveWorkout, { isLoading }] = useSaveWorkoutMutation();
-  const { user: profileDetails } = JSON.parse(
-    sessionStorage.getItem("profile")
-  );
+  const { user: profileDetails } = JSON.parse(localStorage.getItem("profile"));
 
   const navigate = useNavigate();
   const date =

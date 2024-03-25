@@ -3,9 +3,7 @@ import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const { user: profileDetails } = JSON.parse(
-    sessionStorage.getItem("profile")
-  );
+  const { user: profileDetails } = JSON.parse(localStorage.getItem("profile"));
   return (
     <header className="flex justify-between h-20 w-full shrink-0 items-center px-4 md:px-6 container mx-auto">
       <Sheet>

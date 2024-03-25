@@ -5,6 +5,8 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import PrivateRoute from "./PrivateRoute";
 import MyWorkouts from "./pages/MyWorkouts";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function App() {
   return (

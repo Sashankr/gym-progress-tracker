@@ -3,7 +3,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const PrivateRoute = ({ component: component, ...rest }) => {
   const { toast } = useToast();
-  const profileDetails = JSON.parse(sessionStorage.getItem("profile"));
+  const profileDetails = JSON.parse(localStorage.getItem("profile"));
   const token = profileDetails?.token;
   if (!token) {
     toast({

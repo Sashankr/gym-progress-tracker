@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -15,7 +16,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { useSignupMutation } from "../../services/auth";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const formSchema = z
   .object({
@@ -63,6 +64,18 @@ const SignupPage = () => {
   const navigate = useNavigate();
   const [signup, { isLoading, isSuccess }] = useSignupMutation();
   const { toast } = useToast();
+  const profileDetails = JSON.parse(localStorage.getItem("profile"));
+  const token = profileDetails?.token;
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/" || location.pathname === "/login") {
+      if (token) {
+        navigate("/add-workout");
+      }
+    }
+  }, []);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -85,7 +98,7 @@ const SignupPage = () => {
       const response = await signup(values);
       if (!response.error && response.data.status === 201) {
         navigate("/add-workout");
-        sessionStorage.setItem("profile", JSON.stringify(response.data.data));
+        localStorage.setItem("profile", JSON.stringify(response.data.data));
         toast({
           title: response.data.message,
           description: "Welcome to gym progress tracker!",

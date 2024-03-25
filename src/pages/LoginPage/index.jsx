@@ -58,7 +58,7 @@ const LoginPage = () => {
       }
       if (response.data.status === 200) {
         navigate("/add-workout");
-        sessionStorage.setItem("profile", JSON.stringify(response.data.data));
+        localStorage.setItem("profile", JSON.stringify(response.data.data));
         toast({
           title: response.data.message,
           description: "Welcome to gym progress tracker!",
