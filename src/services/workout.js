@@ -9,7 +9,7 @@ export const workoutApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_URL}/workout`,
     prepareHeaders: (headers, { getState }) => {
-      const { token } = JSON.parse(sessionStorage.getItem("profile"));
+      const { token } = JSON.parse(localStorage.getItem("profile"));
       console.log(token);
       if (token) {
         headers.set("x-access-token", `${token}`);

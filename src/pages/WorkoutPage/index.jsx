@@ -86,6 +86,7 @@ const WorkoutPage = () => {
                   const answer = confirm(
                     "Are you sure you want to save this workout?"
                   );
+                  debugger;
                   console.log(answer);
                   if (answer) {
                     try {
